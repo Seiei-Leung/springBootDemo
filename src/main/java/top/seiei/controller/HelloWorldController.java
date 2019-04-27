@@ -8,6 +8,7 @@ import top.seiei.property.SeieiProperty;
 import top.seiei.service.StudentService;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 
 /**
  * 使用了 @RestController 注解，即相当于批量使用 @ReponseBody 注解，默认使用 JSON 数据返回
@@ -30,5 +31,14 @@ public class HelloWorldController {
     @RequestMapping("/getstudent")
     public Student getStudent() {
         return studentService.selectOne();
+    }
+
+    @RequestMapping("/savestudent")
+    public void saveStudent() {
+        try {
+            studentService.testForTransactional();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
